@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<p>Portfolio name:</p>
+		<input type="text" id="newPortName"> 
+		<br /><br />
+
+		<p>Portfolio creation date (dd/mm/yyyy):</p>
+		<input type="text" id="creDate"> 
+		<br /><br />
+		
+		<p>Initial Cash:</p>
+		<input type="number" id="initCash"> 
+		<br /><br />
+		
+		<p>Yearly Interest Rate on Cash:<p>
+		<input type="number" id="intRate"> 
+		<br /><br />
+
+		<p>Interest Compounding Frequency (per year):</p> 
+		<input type="number" id="compFreq">
+		<br /><br />
+
+		<script type="text/javascript" defer>
+			let newPortName;
+			let initCash;
+			let creDate;
+			let intRate;
+			let compFreq;
+
+			function submit() {
+				newPortName = document.getElementById("newPortName").value;
+				creDate = document.getElementById("creDate").value;
+				initCash = document.getElementById("initCash").value;
+				intRate = document.getElementById("intRate").value;
+				compFreq = document.getElementById("compFreq").value;
+
+				function onReturn(returnVal) {
+					if (returnVal == "CANCEL") google.script.host.close();
+				}
+
+				google.script.run.withSuccessHandler(onReturn).portSubmitCheck(newPortName, creDate, initCash, intRate, compFreq);
+			}
+
+			function clearInputs() {
+				document.getElementById("newPortName").value = "";
+				document.getElementById("creDate").value = "";
+				document.getElementById("initCash").value = "";
+				document.getElementById("intRate").value = "";
+				document.getElementById("compFreq").value = "";
+			}
+		</script>
+
+		<input type="button" value="Submit" onClick="submit();" />
+		<input type="button" value="Reset" onClick="clearInputs();" />
+	</body>
+</html>

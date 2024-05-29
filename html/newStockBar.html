@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<p>Portfolio:</p>
+		<input type="text" id="portName">
+		<br /><br />
+
+		<p>Ticker:</p>
+		<input type="text" id="ticker">
+		<br /><br />
+
+		<p>Date obtained (dd/mm/yyyy):</p>
+		<input type="text" id="date">
+		<br /><br />
+
+		<p>Quantity:</p>
+		<input type="number" id="quantity">
+		<br /><br />
+
+		<p>Price per share ($):</p>
+		<input type="number" id="price">
+		<br /><br />
+
+		<script type="text/javascript" defer>
+			let portName;
+			let ticker;
+			let date;
+			let quantity;
+			let price;
+
+			function submit() {
+				portName = document.getElementById("portName").value;
+				ticker = document.getElementById("ticker").value;
+				date = document.getElementById("date").value;
+				quantity = document.getElementById("quantity").value;
+				price = document.getElementById("price").value;
+
+				function onReturn(returnVal) {
+					if (returnVal == "CANCEL") google.script.host.close();
+					else if (returnVal == "YES") google.script.run.newPortBar();
+				}
+
+				google.script.run.withSuccessHandler(onReturn).stockSubmitCheck(portName, ticker, date, quantity, price);
+			}
+
+			function clearInputs() {
+				document.getElementById("portName").value = "";
+				document.getElementById("ticker").value = "";
+				document.getElementById("date").value = "";
+				document.getElementById("quantity").value = "";
+				document.getElementById("price").value = "";
+			}
+		</script>
+
+		<input type="button" value="Submit" onClick="submit();" />
+		<input type="button" value="Reset" onClick="clearInputs();" />
+	</body>
+</html>
